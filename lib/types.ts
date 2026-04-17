@@ -248,6 +248,20 @@ export interface ProfileUpdate {
   slug?: string;
 }
 
+export interface WaitlistEntry {
+  id: UUID;
+  email: string;
+  created_at: ISODateString;
+}
+
+export interface WaitlistInsert {
+  email: string;
+}
+
+export interface WaitlistUpdate {
+  email?: string;
+}
+
 // R wraps each Row/Insert/Update with Record<string,unknown> so they satisfy
 // GenericTable's constraint — required for SupabaseClient generic to resolve.
 type R<T> = T & Record<string, unknown>;
@@ -283,6 +297,12 @@ export interface Database {
         Row: R<Profile>;
         Insert: R<ProfileInsert>;
         Update: R<ProfileUpdate>;
+        Relationships: [];
+      };
+      waitlist: {
+        Row: R<WaitlistEntry>;
+        Insert: R<WaitlistInsert>;
+        Update: R<WaitlistUpdate>;
         Relationships: [];
       };
     };
